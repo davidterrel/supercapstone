@@ -13,7 +13,7 @@ export default function Cart() {
     const totalAmount = getTotalCartAmount();
     const { PRODUCTS } = useContext(ProductContext)
     const navigate = useNavigate();
-
+    console.log(cartItems, PRODUCTS)
     return (
         <>
             <div className="cart">
@@ -21,11 +21,10 @@ export default function Cart() {
                     <h1>Your Cart Items</h1>
                 </div>
                 <div className="cart">
-                    {PRODUCTS.map((product) => {
-                        if (cartItems[product.id] !== 0) {
-                            return <CartItem data={product} />;
-                        }
+                    {PRODUCTS.filter(product => cartItems[product.id] > 0).map((product) => {
+                        return <CartItem key={product.id} data={product} />;
                     })}
+
                 </div>
 
                 {totalAmount > 0 ? (
